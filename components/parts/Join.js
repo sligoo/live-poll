@@ -16,14 +16,14 @@ class Join extends Component {
 		return (
 			<form action="javascript:" onSubmit={this.joinHandler}>
 				<div className="form-group">
-					<label htmlFor="fullName">Full Name</label>
+					<label htmlFor="fullName"> Nom complet</label>
 					<input type="text" id="fullName" ref={(fullName) => this.fullNameTextBox = fullName}
-						className="form-control" placeholder="Enter your full name" required />
+						className="form-control" placeholder="Entrez votre nom" required />
 				</div>
-				<button className="btn btn-primary">Join</button>
+				<button className="btn btn-primary">Rejoindre</button>
 
-				<Link to="/speaker">Join as speaker</Link>
-				<Link to="/board">Go to the Board</Link>
+				{/*<Link to="/speaker">Join as speaker</Link>
+				<Link to="/board">Go to the Board</Link>*/}
 			</form>
 			);
 	}

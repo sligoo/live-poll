@@ -25,5 +25,15 @@ module.exports = {
 				loader: 'babel-loader'
 			}
 		]
-	}
+	},
+    resolve: {
+        packageMains: [
+            'module', // adds check for 'module'
+            'webpack',
+            'browser',
+            'web',
+            ['jam', 'main'],
+            'main',
+        ]
+    }
 };

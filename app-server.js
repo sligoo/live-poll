@@ -1,18 +1,18 @@
-var express = require('express');
-var path = require('path');
+const express = require('express');
+const path = require('path');
 
-var webpack = require('webpack');
-var webpackConfig = require('./webpack.config.js');
-var webpackDevMiddleware = require('webpack-dev-middleware');
-var webpackHotMiddleware = require('webpack-hot-middleware');
+const webpack = require('webpack');
+const webpackConfig = require('./webpack.config.js');
+const webpackDevMiddleware = require('webpack-dev-middleware');
+const webpackHotMiddleware = require('webpack-hot-middleware');
 
-var _collection = require('lodash/collection'); // find
-var _util = require('lodash/util'); // matches
+const _collection = require('lodash/collection'); // find
+const _util = require('lodash/util'); // matches
 
-var app = express();
+const app = express();
 
 // Hot reloading
-var compiler = webpack(webpackConfig);
+const compiler = webpack(webpackConfig);
 app.use(webpackDevMiddleware(compiler, {
 	noInfo: true, publicPath: webpackConfig.output.publicPath
 }));
@@ -26,22 +26,23 @@ app.get('*', (req, res) => {
 	res.sendFile(path.join(__dirname, 'public', 'index.html'));
 });
 
-var server = app.listen(3000);
+const server = app.listen(3000);
 
-var connections = [];
-var audience = [];
-var title = 'Untitled Presentation';
-var speaker = {};
-var questions = require('./app-questions');
-var currentQuestion = false;
-var results = {
-	a: 0,
-	b: 0,
-	c: 0,
-	d: 0
-};
+let connections = [];
+let audience = [];
+let title = 'Untitled Presentation';
+let speaker = {};
+let questions = require('./app-questions');
+let currentQuestion = false;
+/*var results = {
+    a: 0,
+    b: 0,
+    c: 0,
+    d: 0
+};*/
+let results = {};
 
-var io = require('socket.io')(server);
+const io = require('socket.io')(server);
 
 io.on('connection', (client) => {
 	client.emit('welcome', {
@@ -81,12 +82,16 @@ io.on('connection', (client) => {
 
 	client.on('ask', (question) => {
 		currentQuestion = question;
-		results = { a: 0, b: 0, c: 0, d: 0 };
+		// results = { a: 0, b: 0, c: 0, d: 0 };
+		results = {};
 		io.emit('ask', currentQuestion);
 		console.log('Question asked "%s"', question.q);
 	});
 
 	client.on('answer', (payload) => {
+		if (!results[payload.choice] ){
+            results[payload.choice] = 0;
+		}
 		results[payload.choice]++;
 		io.emit('results', results);
 		console.log('Answer: "%s" - %j', payload.choice, results);

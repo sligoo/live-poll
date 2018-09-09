@@ -6,12 +6,12 @@ export default class NotFound extends Component {
 		return(
 			<div id="not-found">
 				<h1>Whoops...</h1>
-				<p>We cannot find the page that you have requested.
-					Were you looking for one of these?</p>
+				<p>Je ne peux afficher la page demandée.
+					Les pages suivantes pourraient t'intéresser:</p>
 
-				<IndexLink to="/">Join as Audience</IndexLink>
-				<Link to="/speaker">Start the presentation</Link>
-				<Link to="/board">View the board</Link>
+				<IndexLink to="/">Rejoindre en tant que votant</IndexLink>
+				<Link to="/speaker">Démarrer la présentation</Link>
+				<Link to="/board">Voir les résultats</Link>
 			</div>
 			);
 	}

@@ -28,7 +28,7 @@ class JoinSpeaker extends Component {
 						className="form-control" placeholder="Enter a title for this presentation" required />
 				</div>
 
-				<button className="btn btn-primary">Join</button>
+				<button className="btn btn-primary">Rejoindre</button>
 			</form>
 			);
 	}

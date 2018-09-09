@@ -24,7 +24,7 @@ class Board extends Component {
 	render() {
 		return (
 			<div id="scoreboard">
-				<Display if={this.props.status === 'connected' &&
+				{<Display if={this.props.status === 'connected' &&
 								this.props.currentQuestion}>
 					<PieChart
 						data={this.getResultsForPieChart(this.props.results)}
@@ -34,11 +34,11 @@ class Board extends Component {
 						radius={100}
 						innerRadius={20}
 						sectorBorderColor="white" />
-				</Display>
+				</Display>}
 
 				<Display if={this.props.status === 'connected' &&
 								!this.props.currentQuestion}>
-					<h3>Awaiting a question...</h3>
+					<h3>Attente d'une question...</h3>
 				</Display>
 
 			</div>

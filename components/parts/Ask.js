@@ -6,34 +6,53 @@ class Ask extends Component {
 	constructor() {
 		super();
 		this.state = {
-			choices: [],
+			//choices: [],
 			answer: undefined
 		};
-		this.selectHandler = this.selectHandler.bind(this);
+		//this.selectHandler = this.selectHandler.bind(this);
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
 	}
 
-	setUpChoices() {
+	/*setUpChoices() {
 		let choices = Object.keys(this.props.question);
 		choices.shift();
 		this.setState({
 			choices: choices,
 			answer: sessionStorage.answer
 		});
-	}
+	}*/
 
-	selectHandler(choice) {
+	/*selectHandler(choice) {
 		this.setState({ answer: choice });
 		sessionStorage.answer = choice;
 		this.props.emit('answer', { question: this.props.question, choice: choice });
 	}
 
+	submitHandler(ans) {
+        this.setState({ answer: ans });
+        sessionStorage.answer = ans;
+        this.props.emit('answer', { question: this.props.question, choice: ans });
+	}*/
+
 	componentWillMount() {
-		this.setUpChoices();
+		//this.setUpChoices();
 	}
 
 	componentWillReceiveProps() {
-		this.setUpChoices();
+		//this.setUpChoices();
 	}
+
+    handleChange(event) {
+        this.setState({value: event.target.value});
+    }
+
+    handleSubmit(event) {
+        this.setState({ answer: this.state.value });
+        sessionStorage.answer = this.state.value;
+        this.props.emit('answer', { question: this.props.question, choice: this.state.value });
+        event.preventDefault();
+    }
 
 	render() {
 		const buttonTypes = ['primary', 'success', 'warning', 'danger'];
@@ -41,13 +60,13 @@ class Ask extends Component {
 		return(
 			<div id="currentQuestion">
 				<Display if={this.state.answer}>
-					<h3>You answered: {this.state.answer}</h3>
+					<h3>Vous avez répondu: {this.state.answer}</h3>
 					<p>{this.props.question[this.state.answer]}</p>
 				</Display>
 
 				<Display if={!this.state.answer}>
 					<h2>{this.props.question.q}</h2>
-					<div className="row">
+					{/*<div className="row">
 						{this.state.choices.map((choice, i) => {
 							return (
 								<button
@@ -56,9 +75,16 @@ class Ask extends Component {
 									onClick={() => this.selectHandler(choice)}>
 									{choice}: {this.props.question[choice]}
 								</button>
+
 							);
 						})}
-					</div>
+					</div>*/}
+                    <form onSubmit={this.handleSubmit}>
+                        <label>
+                            <input type="text" value={this.state.value} onChange={this.handleChange} />
+                        </label>
+                        <input type="submit" value="Submit" />
+                    </form>
 				</Display>
 			</div>
 			);

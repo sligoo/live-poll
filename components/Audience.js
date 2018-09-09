@@ -11,9 +11,9 @@ class Audience extends Component {
 				<Display if={this.props.status === 'connected'}>
 					<Display if={this.props.member.name}>
 						<Display if={!this.props.currentQuestion}>
-							<h2>Welcome {this.props.member.name}</h2>
-							<p>{this.props.audience.length} audience member connnected.</p>
-							<p>Questions will appear here.</p>
+							<h2>Bienvenue {this.props.member.name}</h2>
+							<p>{this.props.audience.length} personnes connectées.</p>
+							<p>La question apparaitra ici.</p>
 						</Display>
 
 						<Display if={this.props.currentQuestion}>
@@ -22,7 +22,7 @@ class Audience extends Component {
 					</Display>
 
 					<Display if={!this.props.member.name}>
-						<h1>Join the presentation</h1>
+						<h1>Rejoindre la présentation</h1>
 						<Join emit={this.props.emit} />
 					</Display>
 				</Display>
